@@ -1,0 +1,15 @@
+group 'com.dexterlab.helper'
+version '1.0'
+
+subprojects{
+    apply plugin: 'idea'
+    apply plugin: 'build-dashboard'
+
+    idea{
+        module{
+            inheritOutputDirs = false
+            outputDir = file("$buildDir/classes/java/main")
+            testOutputDir = file("$buildDir/classes/java/test")
+        }
+    }
+}
