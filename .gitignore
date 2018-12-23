@@ -1,3 +1,4 @@
 .gradle/**
-build/**
+**/build/**
 .idea/**
+**/.attach_pid*
