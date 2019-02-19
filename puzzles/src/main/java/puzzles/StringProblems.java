@@ -1,4 +1,4 @@
-package org.leetcode.puzzles;
+package puzzles;
 
 import java.util.StringTokenizer;
 

@@ -1,4 +1,4 @@
-package org.leetcode.puzzles;
+package puzzles;
 
 public class BitOpProblems {
 

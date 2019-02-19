@@ -1,4 +1,4 @@
-package org.leetcode.puzzles;
+package puzzles;
 
 import org.testng.annotations.DataProvider;
 
