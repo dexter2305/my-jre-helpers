@@ -1,4 +1,4 @@
-package puzzles;
+package edu.leetcode.puzzles;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
