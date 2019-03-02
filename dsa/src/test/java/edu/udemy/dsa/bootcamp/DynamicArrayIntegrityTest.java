@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@Test(suiteName = "integrity")
+
 public class DynamicArrayIntegrityTest {
 
     private DynamicArray<String> collection;
@@ -14,6 +14,7 @@ public class DynamicArrayIntegrityTest {
         collection = new DynamicArray<>(2);
     }
 
+    @Test
     public void testSetGet(){
         collection.set(0, "a");
         collection.set(1, "b");
@@ -21,5 +22,7 @@ public class DynamicArrayIntegrityTest {
         Assert.assertEquals(collection.get(0), "a");
         Assert.assertEquals(collection.get(1), "b");
     }
+
+
 
 }

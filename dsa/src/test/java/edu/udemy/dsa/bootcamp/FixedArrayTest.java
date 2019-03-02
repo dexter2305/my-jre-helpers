@@ -2,133 +2,59 @@ package edu.udemy.dsa.bootcamp;
 
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@Test(suiteName = "units-FixedArray")
+
 public class FixedArrayTest {
 
-    private FixedArray<String> array;
+    private FixedArray<String> collection;
 
-    @AfterMethod
+    @BeforeMethod
     public void afterEveryTest() {
-        array = null;
+        collection = new FixedArray<>(3);
     }
 
     @Test
-    public void testForInitialCapacity() {
-        FixedArray<String> strings = new FixedArray<>(5);
-        Assert.assertEquals(strings.getCapacity(), 5);
-    }
-
-
-    @Test
-    public void testForCurrentSize() {
-        array = new FixedArray<>(3);
-        array.add("data1");
-        Assert.assertEquals(array.size(),1);
-    }
-
-    @Test
-    public void testAdd_toReturnIndexOfFirst(){
-        array = new FixedArray<>(2);
-        int position = array.add("data");
-        Assert.assertEquals(position, 0, "First add should happen in position '0'");
-    }
-
-    @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
-    public void testAdd_forArrayOverflow() {
-        array = new FixedArray<>(3);
-        array.add("data1");
-        array.add("data2");
-        array.add("data3");
-        array.add("data4");
-    }
-
-    @Test
-    public void testForGet(){
-        array = new FixedArray<>(3);
-        array.add("data1");
-        Assert.assertEquals(array.get(0), "data1");
-    }
-
-    @Test(expectedExceptions = IndexOutOfBoundsException.class)
-    public void testForGetAboveRange(){
-        array = new FixedArray<>(3);
-        array.get(5);
-    }
-
-    @Test(expectedExceptions = IndexOutOfBoundsException.class)
-    public void testForBelowAboveRange(){
-        array = new FixedArray<>(3);
-        array.get(-1);
-    }
-
-
-    @Test
-    public void testInit_ForDefaultValueAsNull(){
-        array = new FixedArray<>(3);
-        for (int index = 0; index < array.getCapacity(); index++){
-            Assert.assertNull(array.get(index));
-        }
+    public void testForCapacity() {
+        Assert.assertEquals(collection.getCapacity(), 3);
     }
 
     @Test
     public void testForSet(){
-        array = new FixedArray<>(3);
-        array.add("data1");
-        array.set(0,"setData");
-        Assert.assertEquals(array.get(0), "setData");
+        FixedArray<String> collection = new FixedArray<>(2);
+        collection.set(0, "a");
+        collection.set(0, "a-new-value");
+        Assert.assertEquals(collection.get(0), "a-new-value");
     }
 
     @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
-    public void testForSetAboveRange(){
-        array = new FixedArray<>(3);
-        array.add("data1");
-        array.set(5,"setData");
+    public void testForSet_AboveRange() {
+        collection = new FixedArray<>(2);
+        collection.set(3, "value");
+    }
+
+    @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
+    public void testForSet_BelowRange() {
+        collection = new FixedArray<>(2);
+        collection.set(-3, "value");
     }
 
     @Test
-    public void testInsert(){
-        array = new FixedArray<>(3);
-        array.add("a");
-        array.add("c");
-        array.insert(1, "b");
-        Assert.assertEquals(array.get(1), "b");
+    public void testForGet_AfterInit(){
+        collection = new FixedArray<>(1);
+        Assert.assertNull(collection.get(0));
     }
 
-    @Test(expectedExceptions = IndexOutOfBoundsException.class)
-    public void testForInsertAboveRange(){
-        array = new FixedArray<>(3);
-        array.insert(5, "some-data");
+    @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
+    public void testForGet_AboveRange(){
+        collection = new FixedArray<>(1);
+        collection.get(100);
     }
 
-    @Test(expectedExceptions = IndexOutOfBoundsException.class)
-    public void testForInsertBelowRange(){
-        array = new FixedArray<>(3);
-        array.insert(-1, "some-data");
+    @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
+    public void testForGet_BelowRange(){
+        collection = new FixedArray<>(1);
+        collection.get(-1);
     }
-
-    @Test
-    public void testRemoveForRemovedItemFromMiddle(){
-        array = new FixedArray<>(5);
-        array.add("a");
-        array.add("b");
-        array.add("c");
-        String removedItem = array.remove(1);
-        Assert.assertEquals(removedItem, "b");
-    }
-
-    @Test
-    public void testRemoveFromTail(){
-        array = new FixedArray<>(5);
-        array.add("a");
-        array.add("b");
-        array.add("c");
-        array.add("d");
-        array.add("e");
-        String removedItem = array.remove(1);
-        Assert.assertEquals(removedItem, "b");
-    }
-
 }
