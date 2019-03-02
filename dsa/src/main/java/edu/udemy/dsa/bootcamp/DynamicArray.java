@@ -28,6 +28,7 @@ public class DynamicArray<T> {
      * @param item
      */
     public void insert(int position, T item){
+        array[position] = item;
 
 
     }
