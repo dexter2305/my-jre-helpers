@@ -1,15 +1,5 @@
-plugins {
-    id 'java'
+plugins{
     id 'jacoco'
-}
-
-group 'com.dexterlab.helper'
-version '1.0'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {

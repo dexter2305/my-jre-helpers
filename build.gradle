@@ -2,9 +2,15 @@ group 'com.dexterlab.helper'
 version '1.0'
 
 subprojects{
-    apply plugin: 'idea'
+    //apply java
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+
+    //apply project-dashboard
     apply plugin: 'build-dashboard'
 
+    //apply idea plugin
+    apply plugin: 'idea'
     idea{
         module{
             inheritOutputDirs = false
@@ -12,4 +18,11 @@ subprojects{
             testOutputDir = file("$buildDir/classes/java/test")
         }
     }
+
+    //set repository
+    repositories {
+        mavenCentral()
+    }
+
+
 }

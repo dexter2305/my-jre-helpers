@@ -11,18 +11,41 @@ public class DynamicArrayIntegrityTest {
 
     @BeforeMethod
     public void beforeEveryTest(){
-        collection = new DynamicArray<>(2);
+        collection = new DynamicArray<>();
     }
+
+    @Test(description = "Size of dynamic increases with every add")
+    public void testIncrementInSizeAfterAdd(){
+        collection.add("hello");
+        collection.add("world");
+        Assert.assertEquals(collection.size(), 2);
+    }
+
+    @Test(description = "Size of dynamic increases with every add")
+    public void testDecrementInSizeAfterRemove(){
+        collection.add("hello");
+        collection.add("world");
+        collection.remove(1);
+        collection.remove(0);
+        Assert.assertEquals(collection.size(), 0);
+    }
+
 
     @Test
-    public void testSetGet(){
-        collection.set(0, "a");
-        collection.set(1, "b");
-
-        Assert.assertEquals(collection.get(0), "a");
-        Assert.assertEquals(collection.get(1), "b");
+    public void testGet_AfterAdd(){
+        collection.add("hello");
+        Assert.assertEquals(collection.get(0), "hello");
     }
 
+
+
+    @Test
+    public void testForOrderAfterRemove(){
+        collection.add("hello");
+        collection.add("world");
+        collection.remove(0);
+        Assert.assertEquals(collection.get(0), "world");
+    }
 
 
 }

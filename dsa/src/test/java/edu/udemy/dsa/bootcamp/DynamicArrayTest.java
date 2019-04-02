@@ -17,43 +17,59 @@ public class DynamicArrayTest {
     }
 
     @Test
-    public void testSize() {
+    public void testSize_OnInit() {
+        collection = new DynamicArray<>();
+        Assert.assertEquals(collection.size(), 0);
+    }
+
+    @Test
+    public void testSize_OnVarInit(){
         collection = new DynamicArray<>(10);
-        Assert.assertEquals(collection.size(), 10);
-    }
-
-    @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
-    public void testRemove_BelowRange(){
-        collection = new DynamicArray<>(2);
-        collection.remove(-100);
-    }
-
-    @Test(expectedExceptions = ArrayIndexOutOfBoundsException.class)
-    public void testRemove_AboveRange(){
-        collection = new DynamicArray<>(2);
-        collection.remove(100);
+        Assert.assertEquals(collection.size(), 0);
     }
 
     @Test
-    public void testRemoveForReturnedItem(){
-        collection = new DynamicArray<>(2);
-        collection.set(1, "value-1");
-        String returnedItem = collection.remove(1);
-        Assert.assertEquals(returnedItem, "value-1");
+    public void testAdd() {
+        collection = new DynamicArray<>();
+        collection.add("hello");
+        collection.add("world");
     }
 
-    @Test
-    public void testRemoveForValueReset(){
-        collection = new DynamicArray<>(2);
-        collection.set(1, "value-1");
-        collection.remove(1);
-        Assert.assertNull(collection.get(1));
+    @Test (expectedExceptions = IndexOutOfBoundsException.class, description = "Get on empty array should throw an exception irrespective of the initial capacity")
+    public void testGet_OnEmptyArray(){
+        collection = new DynamicArray<>(10);
+        collection.get(0);
     }
 
-    @Test
-    public void testInsert(){
-        collection = new DynamicArray<>(2);
-        collection.insert(5, "value-100");
+    @Test (expectedExceptions = IndexOutOfBoundsException.class, description = "Get with a negative index should throw an exception irrespective of the initial capacity")
+    public void testGet_WithNegativeValue(){
+        collection = new DynamicArray<>(10);
+        collection.get(-1);
     }
+
+    @Test (expectedExceptions = IndexOutOfBoundsException.class)
+    public void testGet_WithGreaterThanCapacity(){
+        collection = new DynamicArray<>(10);
+        collection.get(100);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testRemove_OnEmptyArray(){
+        collection = new DynamicArray<>(5);
+        collection.remove(0);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testRemove_WithNegativeIndex(){
+        collection = new DynamicArray<>(5);
+        collection.remove(-4);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testRemove_WithIndexGreaterThanSize(){
+        collection = new DynamicArray<>(5);
+        collection.remove(50);
+    }
+
 
 }

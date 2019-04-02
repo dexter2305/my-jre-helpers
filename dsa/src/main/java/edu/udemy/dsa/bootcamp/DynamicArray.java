@@ -1,62 +1,90 @@
 package edu.udemy.dsa.bootcamp;
 
 
-import java.util.Arrays;
-
 public class DynamicArray<T> {
 
-    private int initialCapacity;
-    private T [] array;
+    private T[] data;
 
-    public DynamicArray(int initialCapacity){
-        this.initialCapacity = initialCapacity;
-        array = (T[]) new Object[initialCapacity];
+    private int size;
+
+    public DynamicArray() {
+        this(5);
     }
 
-    public T get(int index){
-        return array[index];
-    }
-
-    public void set(int index, T item){
-        array[index] = item;
+    public DynamicArray(final int capacity) {
+        data = (T[]) new Object[capacity];
     }
 
     /**
-     * Inserts given 'item' in the given index position. Insertion alters the position of the other items after the
-     * given index value by 1. Impacts size.
-     * @param position
+     * Returns the object in index. Throws Exception when index not in (0-size).
+     *
+     * @param index
+     * @return
+     */
+    public T get(int index) {
+        throwExceptionIfNotInRange(index);
+        return data[index];
+    }
+
+    /**
+     * Adds the element to the end of the list. Enlarges when full.
+     *
      * @param item
      */
-    public void insert(int position, T item){
-        array[position] = item;
-
-
-    }
-
-    protected int calculateNewCapacity(int position){
-        int newCapacity = array.length;
-        while( position < newCapacity){
-            newCapacity += newCapacity;
-        }
-        if (newCapacity == 0){
-            newCapacity = array.length * 2;
-        }
-        return newCapacity;
+    public void add(T item) {
+        ensureCapacity();
+        data[size++] = item;
     }
 
     /**
-     * Resets the value referred by 'position' to null. Index referred by position should be within the size.
-     * @param position
+     * Doubles the array when full
+     */
+    protected void ensureCapacity() {
+        if (size < data.length) return;
+        T[] bloated = (T[]) new Object[2 * data.length];
+        for (int i = 0; i < data.length; i++) {
+            bloated[i] = data[i];
+        }
+        data = bloated;
+    }
+
+    /**
+     * Throws unchecked exception when index out of range or array empty.
+     *
+     * @param index
+     */
+    protected void throwExceptionIfNotInRange(final int index) {
+        if (index < 0 || index > size || size == 0) {
+            throw new IndexOutOfBoundsException("size:'" + size + "' given index:'" + index + "'");
+        }
+    }
+
+    /**
+     * Resets the value referred by 'index' to null. Index referred by index should be within the size.
+     *
+     * @param index
      * @return item removed
      */
-    public T remove(int position){
-        T item = array[position];
-        array[position] = null;
+    public T remove(int index) {
+        throwExceptionIfNotInRange(index);
+        T item = data[index];
+        data[index] = null;
+
+        for (int from = index; from < size - 1; from--) {
+            data[from] = data[from + 1];
+        }
+        size--;
         return item;
     }
 
-    public int size(){
-        return array.length;
+
+    /**
+     * Returns current size
+     *
+     * @return
+     */
+    public int size() {
+        return size;
     }
 
 
