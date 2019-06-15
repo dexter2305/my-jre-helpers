@@ -3,4 +3,5 @@ include 'hello-guice'
 include 'puzzles'
 include 'dsa'
 include 'servlets'
+include 'lombok'
 
